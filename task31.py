@@ -12,13 +12,19 @@ def GetToken():
 
 def getNetworkData():
     token = GetToken()
-    print(token)
+    #print(token)
+    mydict = dict()
     url = "https://sandboxapicem.cisco.com/api/v1/host"
     headers = {'Content-type': 'application/json','X-Auth-Token':token}
     response = requests.get(url,headers=headers,verify=False)
     response =  response.json()['response']
-    for r in response:
-        print(r)
+    for r in response:  
+      #  for i in r:
+        ip = r["hostIp"]
+        ip = tuple(ip)
+        mydict[ip] = r["hostMac"]
+
+    print(mydict)
 
 getNetworkData()
 
